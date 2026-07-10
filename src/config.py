@@ -30,6 +30,7 @@ class Settings(BaseSettings):
     # Application environments
     APP_ENV: str = "development"
     MOCK_CALLS_DIR: str = "data/mock_calls"
+    WHISPER_MODEL_NAME: str = "tiny"
 
 # Create a singleton settings object
 settings = Settings()

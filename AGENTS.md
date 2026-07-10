@@ -5,12 +5,12 @@ Building: FitNova Sales-Call Intelligence prototype. Spec: assignment PDF. Plan:
 updating it first, in its own commit.
 
 ## Step 0 — once, before any component
-- [ ] `git init`, `.gitignore`, initial scaffold commit to `main` (folders, `docker-compose.yml`
+- [x] `git init`, `.gitignore`, initial scaffold commit to `main` (folders, `docker-compose.yml`
       with 3 services [db/api/dashboard], `Dockerfile.api`, `Dockerfile.dashboard`,
       `.dockerignore`, `.env.example`, `requirements.txt`, empty `README.md`, `BUILD_LOG.md`).
       Confirm `docker-compose up --build` starts before writing any component logic — every
       component from here on builds and tests against Docker, not a bare local install.
-- [ ] System design diagram (Excalidraw/Mermaid) → `docs/00-system-design.md`. The written
+- [x] System design diagram (Excalidraw/Mermaid) → `docs/00-system-design.md`. The written
       walkthrough in that file MUST explicitly name which pipeline stages automation adds the
       most value to, and justify that prioritisation — this is a graded requirement in the
       assignment's Section A, not satisfied by the diagram alone.

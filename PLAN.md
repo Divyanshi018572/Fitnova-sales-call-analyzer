@@ -246,7 +246,7 @@ fabricate one.
       models, `db.py`. Before writing the test, populate `data/mock_calls/` per §2a (extract ~5
       `.wav` samples from the `snorbyte/indic-audio-dialog-sample` shard) so the folder adapter has
       something real to read. Test: insert a mock call, read it back. Merge.
-- [ ] **4:00–8:00** — `feature/transcription`: Whisper wrapper, dual-channel split. Test: one real
+- [x] **4:00–8:00** — `feature/transcription`: Whisper wrapper, dual-channel split. Test: one real
       recorded sample produces a transcript. Merge.
 - [ ] **8:00–14:00** — `feature/analysis-engine`: prompts.py, tagger.py, verifier.py, rubric.py.
       This is the highest-weight component for evaluation — do not rush it. Test: known transcript
