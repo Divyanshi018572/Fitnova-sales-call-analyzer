@@ -257,9 +257,9 @@ fabricate one.
       project. Everything after this is upside.)**
 - [x] **16:00–19:00** — `feature/api`: FastAPI routers per §3. Test: hit each endpoint against the
       seeded DB. Merge.
-- [ ] **19:00–24:00** — `feature/dashboard`: Streamlit, 3 views (org/team/advisor + call detail).
+- [x] **19:00–24:00** — `feature/dashboard`: Streamlit, 3 views (org/team/advisor + call detail).
       Merge.
-- [ ] **24:00–26:00** — `feature/feedback-loop`: contest endpoints + dashboard "contest this flag"
+- [x] **24:00–26:00** — `feature/feedback-loop`: contest endpoints + dashboard "contest this flag"
       button. Merge.
 - [ ] **26:00–28:00** — `feature/edge-cases`: implement §5 table, add/adjust tests for each row.
       Merge.
