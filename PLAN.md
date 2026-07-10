@@ -242,7 +242,7 @@ fabricate one.
       (even with near-empty API/dashboard) before moving on — every later component builds and
       tests against this from now on, not a bare local Python install. Commit directly to `main`
       (chore, no logic yet).
-- [ ] **1:00–4:00** — `feature/ingestion-storage`: adapter interface + folder adapter, Postgres
+- [x] **1:00–4:00** — `feature/ingestion-storage`: adapter interface + folder adapter, Postgres
       models, `db.py`. Before writing the test, populate `data/mock_calls/` per §2a (extract ~5
       `.wav` samples from the `snorbyte/indic-audio-dialog-sample` shard) so the folder adapter has
       something real to read. Test: insert a mock call, read it back. Merge.

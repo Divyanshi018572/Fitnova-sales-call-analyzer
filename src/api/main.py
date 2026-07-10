@@ -8,8 +8,14 @@ integration layer between the database, the analysis pipeline, and the dashboard
 """
 
 from fastapi import FastAPI
+from src.storage.db import engine, Base
+from src.storage import models  # Must import models to ensure they are registered on Base
+
+# Automatically create tables in the database on startup
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
+
     title="FitNova Sales-Call Intelligence API",
     description="Automated analysis, scoring, and ingestion pipeline for FitNova sales calls.",
     version="0.1.0"
