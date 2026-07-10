@@ -1,0 +1,17 @@
+.git
+.gitignore
+.dockerignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.venv/
+venv/
+pgdata/
+.env
+data_shard_000_zstd.parquet
+*.zip
+*.md
+docs/
+tests/
