@@ -30,6 +30,12 @@ def split_stereo_audio(filepath: str) -> Tuple[str, Optional[str], str]:
     if not os.path.exists(filepath):
         raise FileNotFoundError(f"Audio file not found: {filepath}")
         
+    # Check if the file is a WAV file
+    if not filepath.lower().endswith(".wav"):
+        # Non-WAV formats (MP3, M4A, OGG) cannot be parsed by python's wave library.
+        # We pass them directly to Whisper as a mono stream fallback.
+        return filepath, None, "low"
+        
     with wave.open(filepath, 'rb') as w_in:
         params = w_in.getparams()
         n_channels = params.nchannels
