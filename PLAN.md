@@ -251,7 +251,7 @@ fabricate one.
 - [x] **8:00–14:00** — `feature/analysis-engine`: prompts.py, tagger.py, verifier.py, rubric.py.
       This is the highest-weight component for evaluation — do not rush it. Test: known transcript
       with a planted issue produces the expected tag; verifier rejects a fabricated quote. Merge.
-- [ ] **14:00–16:00** — `feature/pipeline`: orchestrator tying ingestion→transcription→analysis→
+- [x] **14:00–16:00** — `feature/pipeline`: orchestrator tying ingestion→transcription→analysis→
       storage, idempotency check. Test: `test_pipeline_e2e.py` — one call, full loop, asserted in DB.
       Merge. **(This is the "minimum expectation" bar — once this merges, you have a submittable
       project. Everything after this is upside.)**
