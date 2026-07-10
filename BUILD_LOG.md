@@ -9,6 +9,8 @@ This file documents every merge into `main` for tracking and auditing purposes.
 | 2026-07-10 08:45 | Transcription | `feature/transcription` | Stereo channel splitter, mono fallback, and local faster-whisper transcriber wrapper. | 1 test passed inside Docker API container | N/A (Solo local merge) | Merged |
 | 2026-07-10 09:35 | Analysis Engine | `feature/analysis-engine` | API prompt templates, rubric scorer, quote verifier, and provider-agnostic LLM client (Gemini/Groq/Mock). | 3 tests passed inside Docker API container | N/A (Solo local merge) | Merged |
 | 2026-07-10 09:50 | Pipeline Orchestrator | `feature/pipeline` | Unified orchestrator (process_call) linking ingestion, transcription, scoring, verifications, and DB updates. | 1 test passed inside Docker API container | N/A (Solo local merge) | Merged |
+| 2026-07-10 10:05 | FastAPI API Routers | `feature/api` | REST endpoints for call ingestion/processing, summaries/rollups (org/team/advisor), and compliance tag disputes/resolutions. | 4 tests passed inside Docker API container (11 total green) | N/A (Solo local merge) | Merged |
+
 
 
 
