@@ -255,7 +255,7 @@ fabricate one.
       storage, idempotency check. Test: `test_pipeline_e2e.py` — one call, full loop, asserted in DB.
       Merge. **(This is the "minimum expectation" bar — once this merges, you have a submittable
       project. Everything after this is upside.)**
-- [ ] **16:00–19:00** — `feature/api`: FastAPI routers per §3. Test: hit each endpoint against the
+- [x] **16:00–19:00** — `feature/api`: FastAPI routers per §3. Test: hit each endpoint against the
       seeded DB. Merge.
 - [ ] **19:00–24:00** — `feature/dashboard`: Streamlit, 3 views (org/team/advisor + call detail).
       Merge.
