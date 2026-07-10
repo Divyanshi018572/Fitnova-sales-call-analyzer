@@ -52,3 +52,33 @@ def test_transcription_on_stereo_sample():
     
     assert not os.path.exists(left_temp), "Advisor temporary mono file was not cleaned up."
     assert not os.path.exists(right_temp), "Customer temporary mono file was not cleaned up."
+
+def test_pii_redaction():
+    """
+    Verifies that the PII redactor successfully identifies and masks
+    sensitive customer information in transcripts.
+    """
+    from src.transcription.redactor import redact_text
+    
+    test_text = (
+        "My email is customer.care@fitnova.com. "
+        "You can call me at +91 98765 43210 or 9876543210. "
+        "My card number is 4111 2222 3333 4444. "
+        "My Aadhaar card number is 1234 5678 9012. "
+        "My PAN number is ABCDE1234F."
+    )
+    
+    redacted = redact_text(test_text)
+    
+    assert "[EMAIL_REDACTED]" in redacted
+    assert "[PHONE_REDACTED]" in redacted
+    assert "[CREDIT_CARD_REDACTED]" in redacted
+    assert "[AADHAAR_REDACTED]" in redacted
+    assert "[PAN_REDACTED]" in redacted
+    
+    # Verify no raw sensitive numbers remain
+    assert "customer.care@fitnova.com" not in redacted
+    assert "9876543210" not in redacted
+    assert "4111 2222 3333 4444" not in redacted
+    assert "1234 5678 9012" not in redacted
+    assert "ABCDE1234F" not in redacted

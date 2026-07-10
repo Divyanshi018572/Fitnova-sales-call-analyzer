@@ -24,6 +24,9 @@ Thumbs.db
 data_shard_000_zstd.parquet
 *.zip
 *.mp4
+data/mock_calls/
+*.wav
+*.pdf
 
 # IDE / Editor
 .vscode/

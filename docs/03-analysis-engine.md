@@ -24,7 +24,7 @@ Classifies calls as sales/non-sales, scores advisors against a 5-dimension sales
 - **Non-Sales Classification**: Automatically flags non-sales calls (wrong numbers, voicemails) and skips scoring/tagging, setting status to `skipped`.
 - **API Failures / Missing Keys**: Retries and falls back automatically. If no API keys are configured, it invokes a local mock evaluator that matches key phrases, ensuring tests remain green.
 - **Spanning Quotes**: If a compliance quote spans multiple segments, it resolves the timestamp using the first 3 words of the quote.
+- **PII Redaction**: Automatically scans and masks emails, phone numbers, credit cards, Indian Aadhaar IDs, and PAN numbers in transcripts before database storage and LLM evaluation to protect customer privacy.
 
 **Known gaps / what I'd do with more time:**
 - Move prompt texts and rubric weights into the database, allowing team leaders to modify rubrics and taxonomy definitions without code changes.
-- Add advanced regex and Named Entity Recognition (NER) passes to redact PII (credit cards, addresses) before sending transcripts to external APIs.
