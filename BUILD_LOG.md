@@ -8,6 +8,8 @@ This file documents every merge into `main` for tracking and auditing purposes.
 | 2026-07-10 08:30 | Ingestion & Storage | `feature/ingestion-storage` | Ingestion adapters (base, folder), CallEvent schemas, SQLAlchemy database models, and CRUD operations. | 2 tests passed inside Docker API container | N/A (Solo local merge) | Merged |
 | 2026-07-10 08:45 | Transcription | `feature/transcription` | Stereo channel splitter, mono fallback, and local faster-whisper transcriber wrapper. | 1 test passed inside Docker API container | N/A (Solo local merge) | Merged |
 | 2026-07-10 09:35 | Analysis Engine | `feature/analysis-engine` | API prompt templates, rubric scorer, quote verifier, and provider-agnostic LLM client (Gemini/Groq/Mock). | 3 tests passed inside Docker API container | N/A (Solo local merge) | Merged |
+| 2026-07-10 09:50 | Pipeline Orchestrator | `feature/pipeline` | Unified orchestrator (process_call) linking ingestion, transcription, scoring, verifications, and DB updates. | 1 test passed inside Docker API container | N/A (Solo local merge) | Merged |
+
 
 
 
