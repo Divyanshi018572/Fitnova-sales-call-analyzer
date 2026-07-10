@@ -176,7 +176,14 @@ def test_disputes_and_resolutions_flow(db_session):
     # Check tag status is now pending
     session.refresh(tag)
     assert tag.contest_status == "pending"
-    
+
+    # Query pending contests list
+    res_list = client.get("/contests/pending")
+    assert res_list.status_code == 200
+    pending_list = res_list.json()
+    assert len(pending_list) >= 1
+    assert pending_list[0]["contest_id"] == contest_id
+
     # 2. Team Leader resolves (overturns) the contest
     res = client.post(
         f"/contests/{contest_id}/resolve",

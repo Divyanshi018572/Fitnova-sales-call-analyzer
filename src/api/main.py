@@ -15,6 +15,32 @@ from src.api.routers import calls, summaries, contests
 # Create all database tables on start (safe/idempotent)
 Base.metadata.create_all(bind=engine)
 
+# Seed default database values on startup if empty
+from src.storage.db import SessionLocal
+db_session = SessionLocal()
+try:
+    if db_session.query(models.Org).count() == 0:
+        # Create Org
+        org = models.Org(name="FitNova Corporate")
+        db_session.add(org)
+        db_session.flush()
+        
+        # Create Team
+        team = models.Team(name="Elite Sales", org_id=org.id)
+        db_session.add(team)
+        db_session.flush()
+        
+        # Create Advisors
+        advisors = [
+            models.Advisor(name="Rohan", team_id=team.id),
+            models.Advisor(name="Aditya", team_id=team.id),
+            models.Advisor(name="Priya", team_id=team.id)
+        ]
+        db_session.add_all(advisors)
+        db_session.commit()
+finally:
+    db_session.close()
+
 app = FastAPI(
     title="FitNova Sales-Call Intelligence API",
     description="Automated analysis, compliance scoring, and ingestion pipeline for FitNova sales calls.",

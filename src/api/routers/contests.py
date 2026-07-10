@@ -115,3 +115,28 @@ def resolve_contest(contest_id: int, request: schemas.ContestResolveRequest, db_
     db_session.commit()
     db_session.refresh(contest)
     return contest
+
+@router.get("/contests/pending", response_model=list[dict])
+def get_pending_contests(db_session: Session = Depends(db.get_db)):
+    """
+    Retrieves all disputes that are pending resolution, along with context (advisor name, tag description).
+    """
+    from typing import List as PyList
+    contests = db_session.query(models.Contest).join(models.Tag).filter(models.Tag.contest_status == "pending").all()
+    results = []
+    for c in contests:
+        tag = c.tag
+        call = tag.call
+        advisor = call.advisor if call else None
+        results.append({
+            "contest_id": c.id,
+            "tag_id": tag.id,
+            "call_id": call.id if call else None,
+            "advisor_name": advisor.name if advisor else "Unknown",
+            "tag_type": tag.type,
+            "quoted_line": tag.quoted_line,
+            "reason": tag.reason,
+            "advisor_note": c.advisor_note,
+            "created_at": call.created_at if call else None
+        })
+    return results
