@@ -46,7 +46,6 @@ class Transcriber:
         """
         Transcribes a single audio channel and tags segments with the speaker's identity.
         """
-        from src.transcription.redactor import redact_text
         segments, _ = self.model.transcribe(audio_path, beam_size=5, language=None)
         result = []
         for segment in segments:
@@ -54,7 +53,7 @@ class Transcriber:
                 "speaker": speaker_name,
                 "start": round(segment.start, 2),
                 "end": round(segment.end, 2),
-                "text": redact_text(segment.text.strip())
+                "text": segment.text.strip()
             })
         return result
         

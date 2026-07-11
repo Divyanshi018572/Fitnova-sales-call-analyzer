@@ -63,6 +63,12 @@ def process_call(db: Session, call_id: int) -> models.Call:
         transcriber = get_transcriber()
         full_text, segments, confidence = transcriber.transcribe_call(db_call.recording_path)
         
+        # Redact PII (phone numbers, emails, etc.) before storing and evaluating
+        from src.transcription.redactor import redact_text
+        full_text = redact_text(full_text)
+        for seg in segments:
+            seg["text"] = redact_text(seg["text"])
+            
         # Save transcript & segments
         crud.create_transcript(db, call_id, full_text, segments, confidence)
         

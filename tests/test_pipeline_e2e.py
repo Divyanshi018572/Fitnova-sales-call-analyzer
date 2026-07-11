@@ -91,3 +91,73 @@ def test_pipeline_end_to_end(db: Session):
     # 4. Idempotency Check: Run the pipeline again. It should exit early and not raise errors
     re_processed_call = process_call(db, db_call.id)
     assert re_processed_call.status == processed_call.status
+
+from unittest.mock import patch
+
+@patch("src.pipeline.orchestrator.get_transcriber")
+def test_pipeline_pii_redaction(mock_get_transcriber, db: Session):
+    """
+    Test that the orchestrator's PII redaction pass correctly masks phone numbers
+    and email addresses in both full_text and segment list before storing in the DB.
+    """
+    # 1. Mock transcriber output with planted PII
+    class MockTranscriber:
+        def transcribe_call(self, filepath):
+            segments = [
+                {
+                    "speaker": "Advisor",
+                    "start": 1.5,
+                    "end": 8.0,
+                    "text": "My email is advisor.john@fitnova.com and phone is +91 99999 88888."
+                }
+            ]
+            full_text = "My email is advisor.john@fitnova.com and phone is +91 99999 88888."
+            return full_text, segments, "high"
+            
+    mock_get_transcriber.return_value = MockTranscriber()
+    
+    # 2. Seed hierarchy and call
+    org = models.Org(name="PII Org")
+    db.add(org)
+    db.flush()
+    
+    team = models.Team(name="PII Team", org_id=org.id)
+    db.add(team)
+    db.flush()
+    
+    advisor = models.Advisor(name="PII Advisor", team_id=team.id)
+    db.add(advisor)
+    db.flush()
+    
+    event = CallEvent(
+        source_system="folder",
+        source_call_id="pii_test_call.wav",
+        recording_path="data/mock_calls/call_4507.wav",
+        advisor_name="PII Advisor"
+    )
+    db_call = crud.create_call_from_event(db, event)
+    db_call.advisor_id = advisor.id
+    db.commit()
+    
+    # 3. Process call
+    processed_call = process_call(db, db_call.id)
+    assert processed_call.status in ["done", "skipped"]
+    
+    # 4. Verify database transcript is redacted
+    transcript = db.query(models.Transcript).filter(models.Transcript.call_id == db_call.id).first()
+    assert transcript is not None
+    
+    # Verify redacted full text
+    assert "[EMAIL_REDACTED]" in transcript.full_text
+    assert "[PHONE_REDACTED]" in transcript.full_text
+    assert "advisor.john@fitnova.com" not in transcript.full_text
+    assert "99999" not in transcript.full_text
+    
+    # Verify redacted segments
+    assert len(transcript.segments_json) == 1
+    seg = transcript.segments_json[0]
+    assert "[EMAIL_REDACTED]" in seg["text"]
+    assert "[PHONE_REDACTED]" in seg["text"]
+    assert "advisor.john@fitnova.com" not in seg["text"]
+    assert "99999" not in seg["text"]
+

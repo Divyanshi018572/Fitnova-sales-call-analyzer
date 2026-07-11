@@ -15,7 +15,7 @@ EMAIL_PATTERN = re.compile(r'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+')
 
 # Matches international and Indian phone formats (e.g. +91 98765 43210, 9876543210, etc.)
 PHONE_PATTERN = re.compile(
-    r'\b(?:\+?\d{1,3}[-.\s]?)?\(?\d{2,4}\)?[-.\s]?\d{3,4}[-.\s]?\d{4}\b'
+    r'\+?(?:91|1)?[ -]?(?:\(?\d{3}\)?[ -]?\d{3}[ -]?\d{4}|\d{5}[ -]?\d{5}|\d{10})\b'
 )
 
 # Matches standard credit cards (13 to 16 digits)
